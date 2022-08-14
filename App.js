@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { TailwindProvider } from 'tailwindcss-react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthNavigator from './navigaton/AuthNavigator';
+import AppNavigator from './navigaton/AppNavigator';
+
+import AuthContext from './context/context';
+import { useState } from 'react';
 
 export default function App() {
+  const [username, setUsername] = useState();
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContext.Provider value={{username, setUsername}}>
+      <NavigationContainer>
+        <TailwindProvider>
+          {username ? <AppNavigator /> : <AuthNavigator />}
+        </TailwindProvider>
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
