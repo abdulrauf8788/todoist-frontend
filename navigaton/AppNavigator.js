@@ -1,24 +1,28 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import MainScreen from "../screens/MainScreen";
 import CompletedTasksScreen from "../screens/CompletedTasksScreen";
 import AddTaskScreen from "../screens/AddTaskScreen";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false, presentation: "modal" }}
+    <Drawer.Navigator
+      useLegacyImplementation
+      screenOptions={{
+        headerStyle: { backgroundColor: "#002B5B" },
+        headerTintColor: "#fff",
+      }}
     >
-      <Stack.Screen name="Home" component={MainScreen} />
-      <Stack.Screen name="CompletedTasks" component={CompletedTasksScreen} />
-      <Stack.Screen
+      <Drawer.Screen name="Home" component={MainScreen} />
+      <Drawer.Screen name="CompletedTasks" component={CompletedTasksScreen} />
+      <Drawer.Screen
         name="AddTask"
         component={AddTaskScreen}
-        options={{ presentation: "modal" }}
+        options={{ title: "Add new Task" }}
       />
-    </Stack.Navigator>
+    </Drawer.Navigator>
   );
 };
 

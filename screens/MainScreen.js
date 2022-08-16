@@ -20,28 +20,33 @@ const MainScreen = ({ navigation }) => {
       title: "Eat Food.",
       desc: "Eat food reagularly",
       completed: false,
+      priority: "high",
     },
     {
       id: 2,
       title: "Do Home Work",
       desc: "Do Your Homework Bitchs",
       completed: false,
+      priority: "meduim",
     },
   ];
+
+  const [tasks, setTasks] = useState(todos);
+  const addTask = (newTask) => {
+    todos = [...todos, newTask];
+    setTasks(todos);
+  };
 
   return (
     <View>
       <StatusBar barStyle="light-content" backgroundColor="#002B5B" />
 
-      <View className="px-4 pt-5 pb-4 bg-[#002B5B] flex-row justify-between">
-        <TouchableOpacity>
-          <Ionicons name="settings" size={24} color="#8FE3CF" />
-        </TouchableOpacity>
-        <Text>{authContext.username}</Text>
-        <TouchableOpacity onPress={() => authContext.setUsername(null)}>
-          <Ionicons name="person" size={24} color="#8FE3CF" />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        className="bg-red-300 p-3"
+        onPress={() => authContext.setUsername(null)}
+      >
+        <Text className="text-black font-bold">Reset</Text>
+      </TouchableOpacity>
       {message && (
         <View className="px-3 bg-red-200 flex-row justify-between align-bottom">
           <Text className="py-3">{message}</Text>
@@ -64,7 +69,7 @@ const MainScreen = ({ navigation }) => {
 
       <View className="px-5">
         <FlatList
-          data={todos}
+          data={tasks}
           keyExtractor={(item) => item.id}
           renderItem={(item) => <TaskDisplay item={item} />}
         />

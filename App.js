@@ -14,8 +14,7 @@ export default function App() {
     <AuthContext.Provider value={{ username, setUsername }}>
       <TailwindProvider>
         <NavigationContainer>
-          {/* {username ? <AppNavigator /> : <AuthNavigator />} */}
-          <AppNavigator />
+          {username ? <AppNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       </TailwindProvider>
     </AuthContext.Provider>
