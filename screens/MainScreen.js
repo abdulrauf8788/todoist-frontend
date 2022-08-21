@@ -6,36 +6,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import { Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import AuthContext from "../context/context";
 import TaskDisplay from "../components/TaskDisplay";
+import TaskContext from "../context/TaskContext";
 
 const MainScreen = ({ navigation }) => {
   const authContext = useContext(AuthContext);
+  const tasksContext = useContext(TaskContext);
   const [message, setMessage] = useState("Click me!");
-
-  const todos = [
-    {
-      id: 1,
-      title: "Eat Food.",
-      desc: "Eat food reagularly",
-      completed: false,
-      priority: "high",
-    },
-    {
-      id: 2,
-      title: "Do Home Work",
-      desc: "Do Your Homework Bitchs",
-      completed: false,
-      priority: "meduim",
-    },
-  ];
-
-  const [tasks, setTasks] = useState(todos);
-  const addTask = (newTask) => {
-    todos = [...todos, newTask];
-    setTasks(todos);
-  };
 
   return (
     <View>
@@ -62,14 +41,14 @@ const MainScreen = ({ navigation }) => {
         <View className="flex-row justify-between align-middle">
           <Text className="text-lg font-bold">Tasks Todo</Text>
           <TouchableOpacity onPress={() => navigation.navigate("AddTask")}>
-            <Entypo name="add-to-list" size={24} color="#8FE3CF" />
+            <Entypo name="add-to-list" size={24} color="#256D85" />
           </TouchableOpacity>
         </View>
       </View>
 
       <View className="px-5">
         <FlatList
-          data={tasks}
+          data={tasksContext.tasks}
           keyExtractor={(item) => item.id}
           renderItem={(item) => <TaskDisplay item={item} />}
         />

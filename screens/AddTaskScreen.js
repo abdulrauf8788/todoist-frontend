@@ -1,10 +1,14 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import RadioGroup from "react-native-radio-buttons-group";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import TaskContext from "../context/TaskContext";
+import { AntDesign } from "@expo/vector-icons";
 
 const AddTaskScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const taskContext = useContext(TaskContext);
+  const [taskError, setTaskError] = useState(false);
+  const minTaskLength = 2;
 
   const radioButtonsData = [
     {
@@ -24,8 +28,8 @@ const AddTaskScreen = ({ navigation }) => {
     },
     {
       id: "2",
-      label: "Meduim",
-      value: "meduim",
+      label: "Medium",
+      value: "medium",
       containerStyle: {
         flex: 1,
         alignItems: "center",
@@ -70,20 +74,24 @@ const AddTaskScreen = ({ navigation }) => {
   };
 
   const handelSubmit = () => {
+    if (title.length < minTaskLength) {
+      setTaskError(true);
+      return;
+    } else {
+      setTaskError(false);
+    }
+
     const newItem = {
       title,
-      desc,
       completed: false,
       priority: getSelectedPriority(),
     };
 
     // Reset Field Values
     setTitle("");
-    setDesc("");
     setRadioButtons(radioButtonsData);
 
-    // Safe Task Here!
-
+    taskContext.addTask(newItem);
     navigation.navigate("Home");
   };
 
@@ -94,29 +102,26 @@ const AddTaskScreen = ({ navigation }) => {
       </View> */}
 
       <View className="py-5 px-4">
-        <Text className="font-bold text-lg">Title:</Text>
-        <View className="bg-[#8FE3CF] rounded-lg">
+        <Text className="font-bold text-lg py-2">Title:</Text>
+        <View className="bg-[#8FE3CF] rounded-lg flex-row items-center">
           <TextInput
-            className="px-2 py-3"
+            className="px-2 py-3 flex-1"
             placeholder="Do this. "
             value={title}
             onChangeText={setTitle}
             maxLength={32}
           />
+          {taskError && (
+            <AntDesign
+              name="exclamationcircle"
+              size={16}
+              color="orange"
+              style={{ paddingRight: 10 }}
+            />
+          )}
         </View>
 
-        <Text className="font-bold text-lg mt-1">Description:</Text>
-        <View className="bg-[#8FE3CF] rounded-lg h-40">
-          <TextInput
-            className="px-2 py-3 w-90"
-            multiline
-            placeholder="Detail of your task here.  "
-            value={desc}
-            onChangeText={setDesc}
-          />
-        </View>
-
-        <Text className="font-bold text-lg mt-1">Priority:</Text>
+        <Text className="font-bold text-lg mt-1 py-2">Priority:</Text>
         <RadioGroup
           radioButtons={radioButtons}
           onPress={onPressRadioButton}
@@ -129,7 +134,7 @@ const AddTaskScreen = ({ navigation }) => {
         />
 
         <TouchableOpacity
-          className="mt-6 py-4 w-90 rounded-lg bg-[#256D85]"
+          className="mt-8 py-4 w-90 rounded-lg bg-[#256D85]"
           onPress={handelSubmit}
         >
           <Text className="text-center text-white font-bold text-lg">
