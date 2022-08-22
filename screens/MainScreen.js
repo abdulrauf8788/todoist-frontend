@@ -5,7 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import AuthContext from "../context/context";
 import TaskDisplay from "../components/TaskDisplay";
@@ -26,6 +26,7 @@ const MainScreen = ({ navigation }) => {
       >
         <Text className="text-black font-bold">Reset</Text>
       </TouchableOpacity>
+
       {message && (
         <View className="px-3 bg-red-200 flex-row justify-between align-bottom">
           <Text className="py-3">{message}</Text>
@@ -37,7 +38,7 @@ const MainScreen = ({ navigation }) => {
         </View>
       )}
 
-      <View className="px-5 pt-7 pb-5">
+      <View className="px-5 pt-7 pb-4">
         <View className="flex-row justify-between align-middle">
           <Text className="text-lg font-bold">Tasks Todo</Text>
           <TouchableOpacity onPress={() => navigation.navigate("AddTask")}>
@@ -47,11 +48,24 @@ const MainScreen = ({ navigation }) => {
       </View>
 
       <View className="px-5">
-        <FlatList
-          data={tasksContext.tasks}
-          keyExtractor={(item) => item.id}
-          renderItem={(item) => <TaskDisplay item={item} />}
-        />
+        {tasksContext.tasks.length > 0 && (
+          <FlatList
+            data={tasksContext.tasks.filter((task) => task.completed == false)}
+            keyExtractor={(item) => item.id}
+            renderItem={(item) => <TaskDisplay item={item} />}
+          />
+        )}
+      </View>
+      {/* Completed Tasks */}
+      <View className="mt-4 px-5">
+        <Text className="text-lg font-bold mb-3">Completed Tasks</Text>
+        {tasksContext.tasks.length > 0 && (
+          <FlatList
+            data={tasksContext.tasks.filter((task) => task.completed == true)}
+            keyExtractor={(item) => item.id}
+            renderItem={(item) => <TaskDisplay item={item} />}
+          />
+        )}
       </View>
     </View>
   );

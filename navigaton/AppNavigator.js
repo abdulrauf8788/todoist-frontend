@@ -34,13 +34,25 @@ const AuthNavigator = () => {
       : (newTask.id = tasks[tasks.length - 1].id + 1); // Get id of last element and add 1 if not then 1
     setTasks([...tasks, newTask]);
   };
+
   const removeTask = (taskId) => {
+    if (tasks.length == 0) return;
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
   };
 
+  const completeTask = (taskId) => {
+    if (tasks.length == 0) return;
+    tasks.map((task) => {
+      task.id == taskId ? (task.completed = !task.completed) : null;
+    });
+    setTasks([...tasks]);
+  };
+
   return (
-    <TaskContext.Provider value={{ tasks, addTask, removeTask }}>
+    <TaskContext.Provider
+      value={{ tasks, setTasks, addTask, removeTask, completeTask }}
+    >
       <Drawer.Navigator
         useLegacyImplementation
         screenOptions={{

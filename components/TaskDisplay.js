@@ -5,8 +5,7 @@ import TaskContext from "../context/TaskContext";
 
 const TaskDisplay = ({ item }) => {
   const _item = item.item;
-  const [completed, setCompleted] = useState(_item.completed);
-  const taskContext = useContext(TaskContext);
+  const tasksContext = useContext(TaskContext);
 
   const getPriorityColor = () => {
     switch (_item.priority) {
@@ -27,10 +26,10 @@ const TaskDisplay = ({ item }) => {
       <TouchableOpacity
         className="p-1"
         onPress={() => {
-          setCompleted(!completed);
+          tasksContext.completeTask(_item.id);
         }}
       >
-        {completed ? (
+        {_item.completed ? (
           <AntDesign name="checkcircle" size={16} color="green" />
         ) : (
           <AntDesign name="checkcircleo" size={16} color="black" />
@@ -41,7 +40,7 @@ const TaskDisplay = ({ item }) => {
       </Text>
       <TouchableOpacity
         onPress={() => {
-          taskContext.removeTask(_item.id);
+          tasksContext.removeTask(_item.id);
         }}
       >
         <MaterialIcons name="delete" size={24} color="#ff6666" />
