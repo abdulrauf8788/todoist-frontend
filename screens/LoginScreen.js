@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handelLogin = () => {
     if (name.length >= minNameLength) {
-      authContext.setUsername(name);
+      authContext.setStoreUsername(name);
       setNameError(false);
       setName("");
     } else {

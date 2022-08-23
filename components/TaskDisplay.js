@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useContext, useState } from "react";
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { MaterialIcons, AntDesign, Ionicons } from "@expo/vector-icons";
 import TaskContext from "../context/TaskContext";
 
 const TaskDisplay = ({ item }) => {
@@ -38,13 +38,15 @@ const TaskDisplay = ({ item }) => {
       <Text className="text-[#002B5B] pl-2 flex-1 text-base">
         {_item.title}
       </Text>
-      <TouchableOpacity
-        onPress={() => {
-          tasksContext.removeTask(_item.id);
-        }}
-      >
-        <MaterialIcons name="delete" size={24} color="#ff6666" />
-      </TouchableOpacity>
+      {!_item.completed && (
+        <TouchableOpacity
+          onPress={() => {
+            tasksContext.removeTask(_item.id);
+          }}
+        >
+          <MaterialIcons name="delete" size={24} color="#ff6666" />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
