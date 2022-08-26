@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useContext, useState } from "react";
-import { MaterialIcons, AntDesign, Ionicons } from "@expo/vector-icons";
+import React, { useContext } from "react";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import TaskContext from "../context/TaskContext";
 
 const TaskDisplay = ({ item }) => {

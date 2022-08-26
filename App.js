@@ -8,6 +8,11 @@ import AuthContext from "./context/context";
 import { useState } from "react";
 import authStorage from "./storage/authStorage";
 
+import * as SplashScreen from "expo-splash-screen";
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [username, setUsername] = useState();
 
@@ -23,6 +28,7 @@ export default function App() {
     } else {
       console.log("No token");
     }
+    await SplashScreen.hideAsync();
   };
 
   useState(() => {

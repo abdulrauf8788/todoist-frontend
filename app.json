@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "todoist",
+    "name": "Todoist",
     "slug": "todoist",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/welcomeImage.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/welcomeImage.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#256D85"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,13 +22,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/welcomeImage.png",
+        "backgroundColor": "#256D85"
       },
       "package": "com.abdulrauf8788.todoist"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/welcomeImage.png"
     },
     "extra": {
       "eas": {

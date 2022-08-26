@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useContext } from "react";
 import TaskContext from "../context/TaskContext";
-import TaskDisplay from "../components/TaskDisplay";
+import ReadOnlyTaskDisplay from "../components/ReadOnlyTaskDisplay";
 
 const CompletedTasksScreen = () => {
   const tasksContext = useContext(TaskContext);
@@ -21,7 +21,8 @@ const CompletedTasksScreen = () => {
         <FlatList
           data={tasksContext.tasks}
           keyExtractor={(item) => item.id}
-          renderItem={(item) => <TaskDisplay item={item} />}
+          renderItem={(item) => <ReadOnlyTaskDisplay item={item} />}
+          style={{ maxHeight: "90%" }}
         />
       </View>
     </View>
