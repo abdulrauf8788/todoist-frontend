@@ -45,3 +45,7 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
+
+// eas build -p android --profile preview
+// Ad Mobs:
+// https://github.com/chelseafarley/expo-react-native-google-mobile-ads-demo/
